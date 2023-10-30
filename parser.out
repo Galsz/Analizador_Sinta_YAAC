@@ -331,15 +331,15 @@ state 17
     DIVIDE          reduce using rule 5 (expression -> expression MULTIPLY expression .)
     PLUS            reduce using rule 5 (expression -> expression MULTIPLY expression .)
     MINUS           reduce using rule 5 (expression -> expression MULTIPLY expression .)
-    POTENCY         reduce using rule 5 (expression -> expression MULTIPLY expression .)
     $end            reduce using rule 5 (expression -> expression MULTIPLY expression .)
     PARENTHESES_R   reduce using rule 5 (expression -> expression MULTIPLY expression .)
+    POTENCY         shift and go to state 13
 
+  ! POTENCY         [ reduce using rule 5 (expression -> expression MULTIPLY expression .) ]
   ! MULTIPLY        [ shift and go to state 9 ]
   ! DIVIDE          [ shift and go to state 10 ]
   ! PLUS            [ shift and go to state 11 ]
   ! MINUS           [ shift and go to state 12 ]
-  ! POTENCY         [ shift and go to state 13 ]
 
 
 state 18
@@ -355,15 +355,15 @@ state 18
     DIVIDE          reduce using rule 6 (expression -> expression DIVIDE expression .)
     PLUS            reduce using rule 6 (expression -> expression DIVIDE expression .)
     MINUS           reduce using rule 6 (expression -> expression DIVIDE expression .)
-    POTENCY         reduce using rule 6 (expression -> expression DIVIDE expression .)
     $end            reduce using rule 6 (expression -> expression DIVIDE expression .)
     PARENTHESES_R   reduce using rule 6 (expression -> expression DIVIDE expression .)
+    POTENCY         shift and go to state 13
 
+  ! POTENCY         [ reduce using rule 6 (expression -> expression DIVIDE expression .) ]
   ! MULTIPLY        [ shift and go to state 9 ]
   ! DIVIDE          [ shift and go to state 10 ]
   ! PLUS            [ shift and go to state 11 ]
   ! MINUS           [ shift and go to state 12 ]
-  ! POTENCY         [ shift and go to state 13 ]
 
 
 state 19
@@ -377,17 +377,17 @@ state 19
 
     PLUS            reduce using rule 7 (expression -> expression PLUS expression .)
     MINUS           reduce using rule 7 (expression -> expression PLUS expression .)
-    POTENCY         reduce using rule 7 (expression -> expression PLUS expression .)
     $end            reduce using rule 7 (expression -> expression PLUS expression .)
     PARENTHESES_R   reduce using rule 7 (expression -> expression PLUS expression .)
     MULTIPLY        shift and go to state 9
     DIVIDE          shift and go to state 10
+    POTENCY         shift and go to state 13
 
   ! MULTIPLY        [ reduce using rule 7 (expression -> expression PLUS expression .) ]
   ! DIVIDE          [ reduce using rule 7 (expression -> expression PLUS expression .) ]
+  ! POTENCY         [ reduce using rule 7 (expression -> expression PLUS expression .) ]
   ! PLUS            [ shift and go to state 11 ]
   ! MINUS           [ shift and go to state 12 ]
-  ! POTENCY         [ shift and go to state 13 ]
 
 
 state 20
@@ -401,17 +401,17 @@ state 20
 
     PLUS            reduce using rule 8 (expression -> expression MINUS expression .)
     MINUS           reduce using rule 8 (expression -> expression MINUS expression .)
-    POTENCY         reduce using rule 8 (expression -> expression MINUS expression .)
     $end            reduce using rule 8 (expression -> expression MINUS expression .)
     PARENTHESES_R   reduce using rule 8 (expression -> expression MINUS expression .)
     MULTIPLY        shift and go to state 9
     DIVIDE          shift and go to state 10
+    POTENCY         shift and go to state 13
 
   ! MULTIPLY        [ reduce using rule 8 (expression -> expression MINUS expression .) ]
   ! DIVIDE          [ reduce using rule 8 (expression -> expression MINUS expression .) ]
+  ! POTENCY         [ reduce using rule 8 (expression -> expression MINUS expression .) ]
   ! PLUS            [ shift and go to state 11 ]
   ! MINUS           [ shift and go to state 12 ]
-  ! POTENCY         [ shift and go to state 13 ]
 
 
 state 21
@@ -423,24 +423,19 @@ state 21
     (8) expression -> expression . MINUS expression
     (9) expression -> expression . POTENCY expression
 
-  ! shift/reduce conflict for MULTIPLY resolved as shift
-  ! shift/reduce conflict for DIVIDE resolved as shift
-  ! shift/reduce conflict for PLUS resolved as shift
-  ! shift/reduce conflict for MINUS resolved as shift
-  ! shift/reduce conflict for POTENCY resolved as shift
+    MULTIPLY        reduce using rule 9 (expression -> expression POTENCY expression .)
+    DIVIDE          reduce using rule 9 (expression -> expression POTENCY expression .)
+    PLUS            reduce using rule 9 (expression -> expression POTENCY expression .)
+    MINUS           reduce using rule 9 (expression -> expression POTENCY expression .)
     $end            reduce using rule 9 (expression -> expression POTENCY expression .)
     PARENTHESES_R   reduce using rule 9 (expression -> expression POTENCY expression .)
-    MULTIPLY        shift and go to state 9
-    DIVIDE          shift and go to state 10
-    PLUS            shift and go to state 11
-    MINUS           shift and go to state 12
     POTENCY         shift and go to state 13
 
-  ! MULTIPLY        [ reduce using rule 9 (expression -> expression POTENCY expression .) ]
-  ! DIVIDE          [ reduce using rule 9 (expression -> expression POTENCY expression .) ]
-  ! PLUS            [ reduce using rule 9 (expression -> expression POTENCY expression .) ]
-  ! MINUS           [ reduce using rule 9 (expression -> expression POTENCY expression .) ]
   ! POTENCY         [ reduce using rule 9 (expression -> expression POTENCY expression .) ]
+  ! MULTIPLY        [ shift and go to state 9 ]
+  ! DIVIDE          [ shift and go to state 10 ]
+  ! PLUS            [ shift and go to state 11 ]
+  ! MINUS           [ shift and go to state 12 ]
 
 
 state 22
@@ -472,11 +467,3 @@ state 23
     MINUS           shift and go to state 12
     POTENCY         shift and go to state 13
 
-WARNING: 
-WARNING: Conflicts:
-WARNING: 
-WARNING: shift/reduce conflict for MULTIPLY in state 21 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 21 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 21 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 21 resolved as shift
-WARNING: shift/reduce conflict for POTENCY in state 21 resolved as shift
