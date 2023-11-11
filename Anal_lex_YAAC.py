@@ -115,21 +115,25 @@ def eval_ast(node):
     if isinstance(node, tuple):
         op = node[0]
         if op == '+':
-            return eval_ast(node[1]) + eval_ast(node[2])
+            return min(eval_ast(node[1]) + eval_ast(node[2]), 1023)
         elif op == '-':
-            return eval_ast(node[1]) - eval_ast(node[2])
+            return max(min(eval_ast(node[1]) - eval_ast(node[2]), 1023), 0)
         elif op == '*':
-            return eval_ast(node[1]) * eval_ast(node[2])
+            return min(eval_ast(node[1]) * eval_ast(node[2]), 1023)
         elif op == '/':
-            return eval_ast(node[1]) / eval_ast(node[2])
+            if eval_ast(node[2]) == 0:
+                print("Erro: Divisão por zero.")
+                return 0
+            else:
+                return min(eval_ast(node[1]) / eval_ast(node[2]), 1023)
         elif op == '^':
-            return eval_ast(node[1]) ** eval_ast(node[2])
+            return min(eval_ast(node[1]) ** eval_ast(node[2]), 1023)
         elif op == '=':
-            return eval_ast(node[2])
+            return min(eval_ast(node[2]), 1023)
     elif isinstance(node, (int, float)):
-        return node
-    elif isinstance(node, str):  # variable name
-        return symbol_table.get(node, 0)
+        return min(int(node), 1023)
+    elif isinstance(node, str): 
+        return min(symbol_table.get(node, 0), 1023)
 
 lexer = lex.lex()
 parser = yacc.yacc()
